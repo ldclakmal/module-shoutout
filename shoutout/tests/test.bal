@@ -4,9 +4,7 @@ import ballerina/test;
 import ballerina/config;
 
 ShoutOutConfiguration shoutOutConfig = {
-    apiKey: config:getAsString("API_KEY"),
-    toMobile: config:getAsString("TO_MOBILE"),
-    message: "This is a sample SMS sent by Ballerina connector!"
+    apiKey: config:getAsString("API_KEY")
 };
 
 Client shoutOutClient = new(shoutOutConfig);
@@ -15,7 +13,10 @@ Client shoutOutClient = new(shoutOutConfig);
 function testSendSMS() {
     log:printInfo("shoutOutClient -> SendSMS");
 
-    var response = shoutOutClient->sendSMS();
+    string toMobile = config:getAsString("TO_MOBILE");
+    string message = "This is a sample SMS sent by Ballerina connector!";
+
+    var response = shoutOutClient->sendSMS(toMobile, message);
     if (response is json) {
         io:println(response);
     } else {

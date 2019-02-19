@@ -21,9 +21,7 @@ import chanakal/shoutout;
 You can now enter the credentials and configurations in the ShoutOut client configuration record.
 ```ballerina
 shoutout:ShoutOutConfiguration shoutOutConfig = {
-    apiKey: "",
-    toMobile: "",
-    message: "This is a sample SMS sent by Ballerina connector!"
+    apiKey: ""
 };
 
 shoutout:Client shoutOutClient = new(shoutOutConfig);
@@ -31,7 +29,10 @@ shoutout:Client shoutOutClient = new(shoutOutConfig);
 
 The `sendSMS` function send a SMS to initialized number.
 ```ballerina
-    var response = shoutOutClient->sendSMS();
+    string toMobile = "94777123456"
+    string message = "This is a sample SMS sent by Ballerina connector!";
+        
+    var response = shoutOutClient->sendSMS(toMobile, message);
     if (response is json) {
         io:println(response);
     } else {
