@@ -8,21 +8,21 @@ function parseResponseToJson(http:Response|error response) returns json|error {
     if (response is http:Response) {
         var jsonPayload = response.getJsonPayload();
         if (jsonPayload is json) {
-            if (response.statusCode != http:OK_200 && response.statusCode != http:CREATED_201) {
-                map<string> details = { message: response.statusCode + WHITE_SPACE
-                    + response.reasonPhrase + DASH_WITH_WHITE_SPACES_SYMBOL + jsonPayload.toString() };
-                error err = error(SHOUTOUT_ERROR_CODE, details);
-                return err;
+            if (response.statusCode != http:STATUS_OK && response.statusCode != http:STATUS_CREATED) {
+                string message = response.statusCode.toString() + " " + response.reasonPhrase + " - "
+                    + jsonPayload.toString();
+                error err = error(SHOUTOUT_ERROR_CODE, message = message);
+                return <@untainted> err;
             }
-            return jsonPayload;
+            return <@untainted> jsonPayload;
         } else {
-            map<string> details = { message: "Error occurred when parsing response to json." };
-            error err = error(SHOUTOUT_ERROR_CODE, details);
-            return err;
+            string message = "Error occurred when parsing response to json.";
+            error err = error(SHOUTOUT_ERROR_CODE, message = message);
+            return <@untainted> err;
         }
     } else {
-        map<string> details = { message: <string>response.detail().message };
-        error err = error(SHOUTOUT_ERROR_CODE, details);
-        return err;
+        string message = <string>response.detail()?.message;
+        error err = error(SHOUTOUT_ERROR_CODE, message = message);
+        return <@untainted> err;
     }
 }

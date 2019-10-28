@@ -6,10 +6,9 @@ import ballerina/config;
 ShoutOutConfiguration shoutOutConfig = {
     apiKey: config:getAsString("API_KEY")
 };
-
 Client shoutOutClient = new(shoutOutConfig);
 
-@test:Config
+@test:Config{}
 function testSendSMS() {
     log:printInfo("shoutOutClient -> SendSMS");
 
@@ -20,6 +19,6 @@ function testSendSMS() {
     if (response is json) {
         io:println(response);
     } else {
-        test:assertFail(msg = <string>response.detail().message);
+        test:assertFail(msg = <string>response.detail()?.message);
     }
 }
