@@ -29,13 +29,38 @@ shoutout:Client shoutOutClient = new(shoutOutConfig);
 
 The `sendSMS` function send a SMS to given number with given message.
 ```ballerina
-string toMobile = "94777123456"
+string toMobile = "94777123456";
 string message = "This is a sample SMS sent by Ballerina connector!";
     
 var response = shoutOutClient->sendSMS(toMobile, message);
 if (response is json) {
     io:println(response);
 } else {
-    io:println(<string>response.detail()?.message);
+    log:printError("Failed to send SMS", err = response);
+}
+```
+
+## Sample
+
+```ballerina
+import ballerina/io;
+import ballerina/log;
+import ldclakmal/shoutout;
+
+shoutout:ShoutOutConfiguration shoutOutConfig = {
+    apiKey: "sample_api_key"
+};
+shoutout:Client shoutOutClient = new(shoutOutConfig);
+
+public function main() {
+    string toMobile = "94777123456";
+    string message = "This is a sample SMS sent by Ballerina connector!";
+        
+    var response = shoutOutClient->sendSMS(toMobile, message);
+    if (response is json) {
+        io:println(response);
+    } else {
+        log:printError("Failed to send SMS", err = response);
+    }
 }
 ```
