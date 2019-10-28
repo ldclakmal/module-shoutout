@@ -5,3 +5,5 @@ authors = ["Chanaka Lakmal"]
 keywords = ["shoutout", "sms", "otp"]
 repository = "https://github.com/ldclakmal/package-shoutout"
 license = "Apache-2.0"
+
+[dependencies]
