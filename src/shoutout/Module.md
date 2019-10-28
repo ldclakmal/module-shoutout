@@ -8,7 +8,7 @@ The ShoutOut connector allows you to send targeted, personalized messages and en
 
 | Ballerina Language Version  |
 |:---------------------------:|
-| 0.990.3                     |
+| 1.0                         |
 
 ## Getting started
 
@@ -16,9 +16,9 @@ The ShoutOut connector allows you to send targeted, personalized messages and en
 
 > Refer the [Getting Started](https://developers.getshoutout.com/) guide to create ShoutOut API key and learn REST API.
 
-Import the `chanakal/shoutout` module into the Ballerina project.
+Import the `ldclakmal/shoutout` module into the Ballerina project.
 ```ballerina
-import chanakal/shoutout;
+import ldclakmal/shoutout;
 ```
 
 You can now enter the credentials and configurations in the ShoutOut client configuration record.
@@ -26,7 +26,6 @@ You can now enter the credentials and configurations in the ShoutOut client conf
 shoutout:ShoutOutConfiguration shoutOutConfig = {
     apiKey: ""
 };
-
 shoutout:Client shoutOutClient = new(shoutOutConfig);
 ```
 
@@ -39,6 +38,6 @@ var response = shoutOutClient->sendSMS(toMobile, message);
 if (response is json) {
     io:println(response);
 } else {
-    test:assertFail(msg = <string>response.detail().message);
+    io:println(<string>response.detail()?.message);
 }
 ```
