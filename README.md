@@ -6,7 +6,7 @@ The ShoutOut connector allows you to send targeted, personalized messages and en
 
 | Ballerina Language Version  |
 |:---------------------------:|
-| 1.0                         |
+| 1.2.0                       |
 
 ## Getting started
 
